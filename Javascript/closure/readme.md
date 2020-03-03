@@ -1,4 +1,6 @@
-### Closure
+## Closure
+
+---
 
 ```javascript
 function outerFunc(outerVar) {

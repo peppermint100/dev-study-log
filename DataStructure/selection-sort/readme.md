@@ -10,9 +10,7 @@ def sel_sort(list):
             if min > list[j]:
                 min = list[j]
                 # i 인덱스와 j 인덱스의 값을 바꿔줍니다.
-                temp = list[i]
-                list[i] = list[j]
-                list[j] = temp
+                   list[i], list[j] = list[j] , list[i]
         i = i+1
     return list
 ```

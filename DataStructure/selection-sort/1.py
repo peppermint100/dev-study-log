@@ -5,10 +5,7 @@ def sel_sort(list):
         for j in range(i+1, len(list)-1):
             if min > list[j]:
                 min = list[j]
-                temp = list[i]
-                list[i] = list[j]
-                list[j] = temp
-
+                list[i], list[j] = list[j], list[i]
         i = i+1
     return list
 

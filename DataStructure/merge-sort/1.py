@@ -1,33 +1,41 @@
-## 병합 정렬
+def merge_sort(list):
+    n = len(list)
 
-병합 정렬은 배열의 원소가 1개가 될 때 까지 계속 분해하고 1개의 원소를
-갖는 배열들의 크기를 하나씩 비교하면서 병합하여 정렬시키는 방법입니다.
+    if n <= 1:
+        return
 
-```python
-[3, 5, 7, 2, 8, 4]
-```
-```python
-[3,5,7] [2,8,4]
-```
-```python
-[3] [5,7] [2] [8,4]
-```
-```python
-[3] [5] [7] [2] [8] [4]
-``` 
-위와 같이 반씩 쪼개며 나눕니다 이후 에는
+    mid = n // 2
+    g1 = list[:mid]
+    g2 = list[mid:]
 
-```python
-[3,5] [2,7] [4,8]
-```
-인접한 배열끼리 크기를 맞춰가며 병합합니다.
-```python
-[2,3,5,7] [4,8]
-```
-비교하는 두 배열의 가장 앞 인덱스끼리 비교하면서 작으면 가장 앞에 위치하게 하면
-됩니다.
-```python
-[2,3,4,5,7,8]
-```
+    merge_sort(g1)
+    merge_sort(g2)
+
+    i1 = 0
+    i2 = 0
+    ia = 0
+
+    while i1 < len(g1) and i2 < len(g2):
+        if g1[i1] < g2[i2]:
+            list[ia] = g1[i1]
+            i1 += 1
+            ia += 1
+        else:
+            list[ia] = g2[i2]
+            i2 += 1
+            ia += 1
+
+    while i1 < len(g1):
+        list[ia] = g1[i1]
+        i1 += 1
+        ia += 1
+
+    while i2 < len(g2):
+        list[ia] = g2[i2]
+        i2 += 1
+        ia += 1
 
 
+d = [6, 8, 3, 9, 10, 1, 2, 4, 7, 5]
+merge_sort(d)
+print(d)

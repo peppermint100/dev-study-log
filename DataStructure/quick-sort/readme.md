@@ -10,13 +10,13 @@
 
 ## 파티션을 나누는 방법
 
-어느 정도 퀵 정렬의 개념이 이해가 된다면 어떻게 피벗을 중심으로 배열을 분할할까요? 피벗을 정하고 배열의 양 끝 값을 start point, end point로 정합니다.
+어느 정도 퀵 정렬의 개념이 이해가 된다면 어떻게 피벗을 중심으로 배열을 분할할까요? 피벗을 정하고 배열의 양 끝 값을 low point, high point로 정합니다.
 
-그리고 <strong>start point(index 0)부터 하나씩 인덱스를 올려가는데 단 피벗보다 큰 값이 나오면 잠시 멈춥니다. </strong>
+그리고 <strong>low point(index 0)부터 하나씩 인덱스를 올려가는데 단 피벗보다 큰 값이 나오면 잠시 멈춥니다. </strong>
 
-그리고 <strong>end point 마지막 인덱스로 넘어가서 하나씩 인덱스는 낮춰가는데 단 피벗보다 작은 값이 나오면 잠시 멈춥니다.</strong>
+그리고 <strong>high point 마지막 인덱스로 넘어가서 하나씩 인덱스는 낮춰가는데 단 피벗보다 작은 값이 나오면 잠시 멈춥니다.</strong>
 
-그리고 멈추어진 두 start point와 end point 값을 바꿉니다. 그리고 start point의 다음 값부터 다시 반복을 합니다. 이렇게 하면 자연스럽게 피벗을 중심으로 피벗보다 작은 값, 피벗보다 큰 값으로 분할 됩니다. 단 start point와 end point가 서로 교차할 경우(index of start point > index of end point)에 반복문을 종료하도록 하고(분할 완료) 나누어진 파티션에서 새로운 피벗을 찾으면 됩니다.
+그리고 멈추어진 두 low point와 high point 값을 바꿉니다. 그리고 low point의 다음 값부터 다시 반복을 합니다. 이렇게 하면 자연스럽게 피벗을 중심으로 피벗보다 작은 값, 피벗보다 큰 값으로 분할 됩니다. 단 low point와 high point가 서로 교차할 경우(index of low point > index of high point)에 반복문을 종료하도록 하고(분할 완료) 나누어진 파티션에서 새로운 피벗을 찾으면 됩니다.
 
 <img src="./img/quick-sort2.png" alt="퀵정렬아이디어" style="zoom:48%;" />
 

@@ -67,4 +67,4 @@ console.log("sorted", arr);
 
 타입스크립트로 구현한 퀵 정렬입니다.
 
-_이미지 출처 https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html _
+**_ 이미지 출처 https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html _**

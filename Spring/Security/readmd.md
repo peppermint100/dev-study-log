@@ -15,3 +15,16 @@ config에서 anMathers.permitAll()이 먹히지 않는다.
 
 참고링크
 https://github.com/spring-projects/spring-security/issues/4368
+
+Spring security가 적용된 스프링 웹 어플리케이션에 post요청을 보내려면
+csrf 토큰이 필요하다. Postman에는 기본적으로 csrf토큰이 탑재되어 있지
+않아서 요청을 받을 수 없었던 것이다....(몇 시간 삽질함)
+
+postman에서 csrf 토큰을 함께 보내는 방법도 있지만 개발 단계에서는 간단하게
+spring security의 설정(config 파일)에
+
+```java
+http.csrf().disable().authorizeRequests()
+```
+
+이렇게 csrf를 잠깐 비활성화 하면 정상적으로 permitall이 작동한다.

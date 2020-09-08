@@ -13,3 +13,6 @@ Nary-Tree input serialization is represented in their level order traversal, eac
 - 그 다음 큐의 사이즈만큼 큐를 돌며 큐 내의 chilren들을 또 queue에 넣는다.
 - 정해진 큐 사이즈 루프가 끝나면 또 height에 1을 더한다.
 - 반복한다.
+
+2. DFS
+- max_depth 변수를 지정하고 재귀 함수를 통해 노드의 가장 깊은 곳 까지 내려가며 max_depth를 변화시킨다.

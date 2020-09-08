@@ -1,4 +1,4 @@
-var maxDepth = function(root) {
+var BFS = function(root) {
     if(!root) return 0;
     
     const queue = [root]
@@ -17,3 +17,19 @@ var maxDepth = function(root) {
 
     return height
 } 
+
+var max_depth = 0;
+var DFS = function(root) {
+    if(root == null) return 0
+    getMaxDepth(root, 1)
+    return max_depth
+} 
+
+var getMaxDepth = (node, depth) => {
+    if(node == null) return
+    max_depth = Math.max(depth, max_depth)
+    for(let i = 0; i < node.children.length; i++){
+       getMaxDepth(node.children[i], depth + 1) 
+    }
+}
+    

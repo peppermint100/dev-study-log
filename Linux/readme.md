@@ -43,7 +43,37 @@ gzip은 파일을 압축하는데 사용 된다.
 사용자의 명령을 shell이 해석해서 kernel에 명령을 보내고 hardware가 동작한다.
 사용자의 명령을 바로 kernel에 보내지 않는 이유는 여러가지 shell이 존재하고 사용자의 명령을 바로 커널에 보내면 위험할 수 있기 때문에 안정성, 신뢰성을 위해 shell이라는 레이어를 나눈다.
 
+## curl
+1. HTTP 
+2. FTP(File transfer Protocol)
+```
+curl <API_ENDPOINT>
+```
 
+- 옵션
+1. -i : 헤더 정보도 가져온다.
+2. --head, -I : 헤더 정보만 가져온다.
+3. -o : txt파일에 쓴다.
+4. -O : 확장자 파일 없이 파일에 쓴다.
+5. --limit-rate <number> : 파일 용량 제한.
+6. -L : 리다이렉트된 url을 이용한다.
+7. -T <FILENAME> : FILENAME이라는 이름으로 업로드
+8. -O : 다운로드
+9. -u  <USERID>:<PASSWORD>: 유저 정보 입력
+
+## wget
+```
+wget <DOWNLOAD_LINK>
+```
+다운로드 링크에 의해 다운받아지는 파일을 다운로드
+- 옵션  
+1. -o <FILENAME> : 파일 이름을 설정하여 다운로드(기본적으로 download라는 이름으로 다운됌)
+
+## find
+```
+sudo find / -name nginx.conf
+```
+/ 라는 디렉토리(루트) 부터 nginx.conf라는 이름을 가진 파일을 찾아서 위치를 리턴한다.
 
 
 

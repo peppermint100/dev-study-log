@@ -74,6 +74,59 @@ wget <DOWNLOAD_LINK>
 sudo find / -name nginx.conf
 ```
 / 라는 디렉토리(루트) 부터 nginx.conf라는 이름을 가진 파일을 찾아서 위치를 리턴한다.
+  
+
+## history
+이전까지 실행했던 명령어를 보여준다.
+
+
+## !
+!! : 이전에 실행했던 명령어를 실행한다.
+!<character> : <character>로 시작하는 이전 명령어를 실행한다.
+
+## ll
+ls -al
+
+## .vimrc
+vim 설정
+```
+set smartindent
+set tabstop=4
+set expandtab
+set shiftwidth=4
+```
+등의 vim 설정가능
+
+## .bashrc
+
+.bashrc 파일 내에
+```
+alias s1='~/s1.sh`
+```
+이렇게 alias 명령을 주고
+
+`. .bashrc` 명령어를 통해 최신화를 시켜준다음 `s1` 명령어를 이용할 수 있다. 파일을 살펴보면 `ll`은 `ls -la`로 aliasing이 되어 있는 것을 확인할 수 있다.
+
+## Date
+
+```
+date "+%Y-%m-%d %H:%M:%S"
+```
+로 date를 포맷팅할 수 있다.
+
+```
+date "+%Y-%m-%d %H:%M:%S" --date=yesterday
+
+date "+%Y-%m-%d %H:%M:%S" --date='1 day ago'
+
+date "+%Y-%m-%d %H:%M:%S" --date='1 week ago'
+
+
+date "+%Y-%m-%d %H:%M:%S" --date='1 month'
+```
+등으로 미래, 과거의 시간도 지정 및 포맷팅이 가능하다.
+
+
 
 
 

@@ -1,0 +1,78 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXFileReference section */
+		E5EC2F8F2A6513A5000F9836 /* syncasync-serialconcurrent.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "syncasync-serialconcurrent.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E5EC2F902A651C88000F9836 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E5EC2F912A65273C000F9836 /* qos.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = qos.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		E5EC2F872A6512CE000F9836 = {
+			isa = PBXGroup;
+			children = (
+				E5EC2F912A65273C000F9836 /* qos.playground */,
+				E5EC2F902A651C88000F9836 /* README.md */,
+				E5EC2F8F2A6513A5000F9836 /* syncasync-serialconcurrent.playground */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		E5EC2F882A6512CE000F9836 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = E5EC2F8B2A6512CE000F9836 /* Build configuration list for PBXProject "gcd" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E5EC2F872A6512CE000F9836;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		E5EC2F8C2A6512CE000F9836 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E5EC2F8D2A6512CE000F9836 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E5EC2F8B2A6512CE000F9836 /* Build configuration list for PBXProject "gcd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5EC2F8C2A6512CE000F9836 /* Debug */,
+				E5EC2F8D2A6512CE000F9836 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E5EC2F882A6512CE000F9836 /* Project object */;
+}

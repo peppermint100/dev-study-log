@@ -1,8 +1,9 @@
 
 1. Main.storyboard 파일을 Move to trash로 삭제
 2. 프로젝트 세팅 -> Info 탭에 접근
-3. Main stroyboard file base name, Application Secene Manifest.Secene Configuration.Application Session Role.Item 0.Storyboard Name 삭제
-4. Scene Deligate에서 앱 실행시 보여줄 init 뷰 컨트롤러를 아래와 같이 세팅
+3. Build Settings에서 info.plist values에 UIKit Main Storyboard File Basename 의 Main 값을 지워줌
+4. Main stroyboard file base name, Application Secene Manifest.Secene Configuration.Application Session Role.Item 0.Storyboard Name 삭제
+5. Scene Deligate에서 앱 실행시 보여줄 init 뷰 컨트롤러를 아래와 같이 세팅
 
 ```swift
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

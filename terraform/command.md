@@ -63,3 +63,18 @@ Terraform으로 관리되는 모든 인프라 리소스를 제거
 4. 상태 파일 갱신
 - 모든 리소스 삭제가 완료되면, terraform.tfstate 파일에서 해당 리소스 정보를 모두 제거
 - 상태 파일을 비워 관리할 리소스가 없음을 기록
+
+```bash
+terraform state pull
+```
+테라폼과 현재 연결된 백엔드에서 state 정보를 가져온다.
+
+```bash
+terraform init -migrate-state
+```
+테라폼과 이전에 연결된 백엔드에서 state 정보를 가져와서 현재 연결된 백엔드에 이전한다.
+
+```bash
+terraform force-unlock {LOCK_ID}
+```
+테라폼의 잠금을 활성화 했을 때(Dynamodb 등..) 해당 잠금을 해제한다.

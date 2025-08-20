@@ -1,3 +1,4 @@
+## Basic Command
 ```bash
 terraform init
 ```
@@ -78,3 +79,69 @@ terraform init -migrate-state
 terraform force-unlock {LOCK_ID}
 ```
 테라폼의 잠금을 활성화 했을 때(Dynamodb 등..) 해당 잠금을 해제한다.
+
+## alias
+- alias를 통해 같은 타입(aws, azure 등..)의 프로바이더를 한 테라폼 내에서 여러개를 사용할 수 있다.
+```bash
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# 기본 프로바이더: us-east-1
+provider "aws" {
+  region = "us-east-1"
+}
+
+# 별명("west") 프로바이더: us-west-1
+provider "aws" {
+  alias  = "west"
+  region = "us-west-1"
+}
+
+# 1. us-east-1 리전에 S3 버킷 생성
+# provider 인수가 없으므로 '기본' 프로바이더를 사용합니다.
+resource "aws_s3_bucket" "bucket_east" {
+  bucket = "my-unique-bucket-for-east-region-12345" # 버킷 이름은 전역적으로 고유해야 합니다.
+  
+  tags = {
+    Name = "My bucket in us-east-1"
+  }
+}
+
+# 2. us-west-1 리전에 S3 버킷 생성
+# provider = aws.west 를 지정하여 'west' 별명을 가진 프로바이더를 사용합니다.
+resource "aws_s3_bucket" "bucket_west" {
+  provider = aws.west # 이 부분이 핵심입니다!
+  
+  bucket = "my-unique-bucket-for-west-region-67890" # 버킷 이름은 전역적으로 고유해야 합니다.
+
+  tags = {
+    Name = "My bucket in us-west-1"
+  }
+}
+```
+
+## -out option
+```bash
+terraform plan -out={name}
+terraform apply {name}
+```
+- 현재 plan을 파일로 저장해두었다가 이 후에 적용할 수 있다.
+
+## login
+```bash
+terraform login
+```
+- HCP Terraform이나 Terraform Enterprise처럼 HashiCorp가 직접 제공하는 서비스형 백엔드에 접속할 때만 사용
+
+## state rm
+```bash
+module, type, name은 tfstate 파일을 따름
+terraform state rm '{module}.{type}.{name}'
+```
+- 해당 리소스를 state 파일에서만 제거한다. 이미 사라진 리소스를 state의 추적 목록에서 제거 할 때 사용

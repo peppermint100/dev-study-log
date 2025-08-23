@@ -251,3 +251,14 @@ terraform show 명령어는 테라폼 상태 파일(state)이나 실행 계획(p
 * 별도 파일을 지정하지 않으면 최신 상태 파일을 기본으로 보여줌
 
 terraform show는 상태 정보나 실행 계획을 시각적으로 확인하거나 검토하는 데 유용하다.
+
+## terraform state rm
+```bash
+# module, type, name은 tfstate 파일을 따름
+terraform state rm '{module}.{type}.{name}'
+```
+해당 리소스를 state 파일에서만 제거한다. 이미 사라진 리소스를 state의 추적 목록에서 제거 할 때 사용
+
+
+## terraform fmt
+terraform fmt는 Terraform 코드(HCL)를 공식 스타일 가이드에 맞춰 자동으로 정렬해주는 명령어이다. 코드의 기능에는 전혀 영향을 주지 않고, 오직 가독성과 일관성을 높이기 위해 들여쓰기 공백, 줄 맞춤 등을 정리한다.

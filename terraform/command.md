@@ -262,3 +262,59 @@ terraform state rm '{module}.{type}.{name}'
 
 ## terraform fmt
 terraform fmt는 Terraform 코드(HCL)를 공식 스타일 가이드에 맞춰 자동으로 정렬해주는 명령어이다. 코드의 기능에는 전혀 영향을 주지 않고, 오직 가독성과 일관성을 높이기 위해 들여쓰기 공백, 줄 맞춤 등을 정리한다.
+
+plan -out={filename}
+terraform 실행 계획을 바이너리 파일로 생성한다. 이 후에 `terraform apply {filename}`을 사용하여 그 플랜 그대로 적용할 수 있다.
+
+## state show 
+* **역할**: state list로 확인한 특정 리소스 **하나를 지정**하여, 그 리소스의 모든 속성값(Attribute)을 상세하게 보여준다.
+* **목적**: 특정 리소스의 ID, IP 주소 등 구체적인 설정값을 확인하거나 디버깅할 때 사용.
+* **출력 형식**: 지정한 리소스의 모든 속성이 키 = 값 형태로 자세하게 출력됨.
+
+### 사용 예시
+```bash
+$ terraform state show aws_instance.web
+
+# 결과
+resource "aws_instance" "web" {
+    ami                          = "ami-0c55b159cbfafe1f0"
+    id                           = "i-0123456789abcdef0"
+    instance_type                = "t2.micro"
+   ...
+}
+```
+
+
+## terraform output
+
+상태 파일(.tfstate)에 저장된 **출력 변수(output value)의 값을 조회**하는 명령어이다.
+* **목적**: Terraform으로 생성한 리소스의 중요한 정보(예: 서버 IP 주소, DB 엔드포인트)를 터미널에서 쉽고 빠르게 확인할 때 사용.
+* **동작 원리**: 루트 모듈에 output 블록으로 정의된 값들을 상태 파일에서 읽어와 출력한다.
+
+```bash
+$ terraform output
+# instance_public_ip = "54.180.1.234"
+$ terraform output instance_public_ip
+# "54.180.1.234"
+$ terraform output -json
+{
+  "instance_public_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "54.180.1.234"
+  }
+}
+```
+
+## terraform destroy -auto-approve
+Terraform으로 관리되는 모든 인프라를 **삭제**할 때 사용하는 명령어이다.
+* -auto-approve **플래그**: destroy 실행 시 정말 삭제할 것인지 묻는 **확인 질문을 건너뛰고** 즉시 삭제를 진행한다.
+* **주요 사용처**: CI/CD 파이프라인 등 자동화된 환경에서 임시 인프라를 정리할 때 주로 사용되며, 운영 환경에서는 사용에 각별한 주의가 필요하다.
+
+## terraform init -upgrade
+작업 디렉터리를 초기화하면서 설치된 **프로바이더와 모듈을 최신 버전으로 업그레이드**하는 명령어이다.
+* **동작 방식**: 버전 제약 조건(version = "~> 5.0")이 허용하는 범위 내에서 가장 최신 버전의 프로바이더와 모듈로 업데이트한다.
+* **주요 사용처**: 프로젝트에 사용된 프로바이더의 새로운 기능이나 패치 버전을 적용하고 싶을 때 사용한다.
+
+## terraform destroy -target=azurerm_resource_group.production
+- 특정 리소스만 삭제한다. 

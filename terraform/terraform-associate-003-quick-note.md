@@ -261,8 +261,6 @@ AWS IAM 역할(Role)이나 Azure Managed Identity처럼, Terraform이 실행되�
 * **동작 방식**: EC2 인스턴스에 IAM 역할이 할당되어 있다면, AWS 프로바이더는 AWS API를 통해 해당 역할에 대한 임시 보안 키를 자동으로 발급받아 사용한다.
 * **특징**: Access Key 같은 **장기 자격 증명(Long-term credential)이 전혀 필요 없는** 가장 안전하고 권장되는 방식이다. 클라우드 환경에서 Terraform을 실행할 때 베스트 프랙티스이다.
 
-네, 이 문제와 각 보기의 역할에 대해 요청하신 톤앤매너에 맞추어 설명해 드립니다.
-
 ### Terraform Provider
 Terraform 코어와 외부 서비스(AWS, GCP 등)의 API 사이를 중계하는 플러그인이다. 프로바이더는 특정 API의 복잡한 호출 방식을 추상화하고, aws_instance와 같은 간단한 리소스 형태로 Terraform 사용자에게 노출하는 책임을 진다. 사용자가 HCL 코드로 "EC2 인스턴스를 만들어줘"라고 선언하면, AWS 프로바이더가 이를 실제 AWS API 호출로 번역하여 실행한다.
 

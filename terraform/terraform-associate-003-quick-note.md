@@ -331,3 +331,74 @@ Terraform 워크스페이스(Workspace)는 동일한 구성 파일을 사용하�
   * 지정한 이름의 워크스페이스를 삭제한다.
   * **주의**: 워크스페이스에 관리되는 리소스가 남아있는 경우 삭제할 수 없다. 먼저 terraform destroy를 실행해야 한다.
   * default 워크스페이스는 삭제할 수 없다.
+
+  ## import block
+import 블록은 Terraform v1.5부터 도입된 기능으로, 이미 수동으로 생성된 인프라 자원을 Terraform 코드와 상태 파일 안으로 가져오기 위해 사용하는 선언적(declarative) 방식이다.
+
+기존의 terraform import 명령어와 달리, import 블록은 코드의 일부로 작성되어 plan과 apply 작업 흐름에 통합된다.
+
+```hcl
+import {
+  to = aws_s3_bucket.my_bucket
+  id = "my-unique-terraform-bucket-name"
+}
+```
+
+* to: Terraform 구성 파일에 정의된 리소스 주소(resource_type.name)를 지정한다.
+* id: 실제 클라우드에 존재하는 자원의 고유 ID(S3 버킷의 경우 버킷 이름)를 지정한다.
+
+⠀**주요 특징**
+* **계획(Plan)에 통합**: terraform plan을 실행하면, Terraform이 import 블록을 인식하고 해당 자원을 상태 파일로 가져오는 계획을 보여준다. 이를 통해 실제 apply 전에 어떤 자원이 어떻게 import될지 미리 검토할 수 있다.
+* **코드 자동 생성 (v1.7 이상)**: terraform plan -generate-config-out=generated.tf 와 같이 옵션을 사용하면, import 하려는 자원의 구성 코드를 자동으로 생성해준다.
+* **선언적 관리**: 가져오려는 대상이 코드에 명시적으로 남아있어, 어떤 자원이 외부에서 관리 상태로 전환되었는지 추적하기 용이하다.
+
+## moved block
+Terraform 코드의 리소스 주소를 변경(예: 이름 변경, 모듈로 이동)할 때, Terraform이 해당 리소스를 파괴하고 다시 생성하는 대신, 기존 리소스의 상태를 새로운 주소로 안전하게 이전하기 위해 사용하는 선언적 방식이다.
+
+```hcl
+resource "aws_instance" "app_server" {
+  # ... configuration for the server
+}
+
+moved {
+  from = aws_instance.web_server
+  to   = aws_instance.app_server
+}
+```
+* from: 변경하기 전의 예전 리소스 주소를 지정한다. 이 주소는 더 이상 구성 파일에 존재하지 않아야 한다.
+* to: 리소스의 새로운 주소를 지정한다. 이 주소는 현재 구성 파일에 정의되어 있어야 한다.
+* **주요 특징**
+  * **계획(Plan)에 통합**: terraform plan을 실행하면, Terraform은 moved 블록을 인식하고 상태 파일 내에서 리소스의 주소를 변경하는 계획(~ rename)을 보여준다. 이를 통해 실제 인프라의 변경 없이 상태만 이전되는 것을 확인할 수 있다.
+  * **안전한 리팩토링**: 리소스 이름 변경, 리소스를 모듈 안으로 또는 밖으로 이동, 모듈 이름 변경 등 다양한 코드 리팩토링 작업을 할 때, 다운타임 없이 안전하게 상태를 이전할 수 있다.
+  * **버전 관리**: 리팩토링 이력이 코드(moved 블록)에 명시적으로 남아있기 때문에, 버전 관리 시스템(Git 등)을 통해 변경 사항을 추적하고 팀원들과 리뷰하기 용이하다.
+
+## required_providers와 provider 블록
+### required_providers
+terraform 블록 내부에 작성하며, terraform init 시 사용할 프로바이더의 소스(source)와 버전(version)을 정의하는 역할을 함.
+* **주요 역할**
+  * **의존성 선언**: 프로젝트에 필요한 프로바이더 플러그인을 명시적으로 지정.
+  * **버전 고정**: version 속성으로 팀 전체가 동일한 버전을 사용하도록 보장하여 버전 충돌을 방지.
+```hcl
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+```
+
+### provider
+init을 통해 설치된 프로바이더를 실제 클라우드 플랫폼에 연결하기 위해 인증 정보나 리전(region) 등을 구성하는 역할을 함. plan, apply 시 사용됨.
+* **주요 역할**
+  * **인증 정보 설정**: 클라우드 API에 접근하기 위한 자격 증명을 구성.
+  * **기본값 구성**: 리전, 프로젝트 ID 등 리소스에 공통으로 적용될 기본값을 지정.
+```hcl
+provider "aws" {
+  region = "ap-northeast-2"
+}
+```
+
+-> required_providers는 terraform 블록 안에 위치하며 어떤 버전의 프로바이더를 사용할지에 대한 내용
+-> provider 블록은 설치된 프로바이더를 사용하기 위해 인증정보나 리전등 요구사항을 구성하는 역할
